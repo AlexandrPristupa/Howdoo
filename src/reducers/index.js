@@ -21,7 +21,10 @@ const rootReducer = (state = initialState, action) => {
         case types.EDIT_PRODUCT:
             return { ...state };
         case types.REMOVE_PRODUCT:
-            return { ...state };
+            return {
+                ...state,
+                products: [...state.products.filter((product) => product.id !== action.payload)]
+            };
         default:
             return {...state};
     }

@@ -5,7 +5,7 @@ import { map as _map } from 'lodash';
 const TableComponent = ({ dataList, onEdit, onRemove }) => {
   console.log(dataList)
   return (
-    <Table compact celled definition>
+    <Table celled>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Name</Table.HeaderCell>
@@ -16,16 +16,15 @@ const TableComponent = ({ dataList, onEdit, onRemove }) => {
       </Table.Header>
 
       <Table.Body>
-        {_map(dataList, (item, index) => {
-          console.log(item);
+        {_map(dataList, ({ name, count, onStores, id }, index) => {
           return (
             <Table.Row key={`table-item-${index}`}>
-              <Table.Cell>{item.name}</Table.Cell>
-              <Table.Cell>{item.count}</Table.Cell>
-              <Table.Cell>{item.onStores}</Table.Cell>
+              <Table.Cell>{name}</Table.Cell>
+              <Table.Cell>{count}</Table.Cell>
+              <Table.Cell>{onStores}</Table.Cell>
               <Table.Cell>
-                <Button icon='edit' onClick={onEdit} />
-                <Button icon='remove' onClick={onRemove} />
+                <Button icon='edit' onClick={() => onEdit(id)} />
+                <Button icon='remove' onClick={() => onRemove(id)} />
               </Table.Cell>
             </Table.Row>
           )
