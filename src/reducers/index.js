@@ -16,14 +16,26 @@ const rootReducer = (state = initialState, action) => {
         case types.ADD_PRODUCT:
             return {
                 ...state,
-                products: [...state.products, action.payload]
+                products: [
+                    ...state.products, action.payload
+                ]
             };
         case types.EDIT_PRODUCT:
-            return { ...state };
+            return {
+                ...state,
+                products: state.products.map((product) => {
+                        if (product.id === action.payload.id) {
+                            return action.payload;
+                        }
+                        return product;
+                    })
+                }
         case types.REMOVE_PRODUCT:
             return {
                 ...state,
-                products: [...state.products.filter((product) => product.id !== action.payload)]
+                products: [
+                    ...state.products.filter((product) => product.id !== action.payload)
+                ]
             };
         default:
             return {...state};
